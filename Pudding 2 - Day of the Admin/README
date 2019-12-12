@@ -1,0 +1,7 @@
+Title:
+Pudding 2 - Day of the Admin
+Description:
+It's admin day guys! And if you're an admin our Oracle is gonna give you something special. But beware imposters and crooks: it has a bulletproof method of checking if you're really an admin.
+
+Po podłączeniu się do podanego portu dostajemy dokładnie taką samą wiadomość co w zadaniu Pudding. Po odesłaniu cookie do serwera dostajemy oprócz tej odpowiedzi co ostatnio również "You're not an admin, so no special gift!". Wiemy więc, że w tym zadaniu mamy przekonać serwer, że jesteśmy adminem. Jeśli rozwiązaliśmy poprzednie zadanie to wiemy, że zdeszyfrowana wiadomość zawierała pole "admin": 0, można więc łatwo domyślić się, że naszym celem jest ustawienie tam wartości 1. Wymaga to wiedzy, że podatność Padding Oracle pozwala nie tylko deszyfrować szyfrogramy, ale także je podrabiać. Więcej na temat tej podatności można przeczytać tutaj: https://sekurak.pl/czym-jest-padding-oracle-atak-i-ochrona/
+Należy więc napisać skrypt, który zaszyfruje tekst {"admin": 1}, który to szyfrogram wysyłamy następnie do serwera, który w zamian daje nam flagę. Przykładowe rozwiązanie znajduje się w pliku solve.py. Dołączony jest również plik oracle.py który umieszczony był na serwerze. Można go uruchomić komendą "python2 oracle.py localhost 4444" gdzie za localhost podajemy adres interfejsu na którym ma być uruchomione zadanie, a za 4444 numer portu. W pliku solve.py ustawione jest łączenie się do localhost:4444.

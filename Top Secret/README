@@ -1,0 +1,19 @@
+Title:
+Top secret
+Description:
+Dear diary,
+I'm moving you to cyber realm. Are you excited? With this new fancy startup BeatFlip I can finally get rid of this ridiculous analog version of you, and store all of my precious thoughts in super secure encrypted form. It's completely legit blockchain based, AI powered quantum encryption of the future! At least they say so...
+
+
+W tym zadaniu łączymy się do podanego portu pod którym znajduje się kryptograficznie bezpieczny pamiętnik BeatFlip. Mamy możliwość stworzenia nowego wpisu i odczytania starego. W przypadku tworzenia wpisu musimy podać jego zawartość, a następnie otrzymujemy jego zaszyfrowaną wersję. Możemy podać ją w funkcjonalności odczytywania starej wersji, gdzie zostanie nam zwrócony cały odszyfrowany tekst w formacie JSON i informacja: "admin": 1 not found - admin content blocked. Daje nam to prawo podejrzewać, że jeśli w zdeszyfrowanym tekście znajdzie się ciąg "admin": 1 to otrzymamy flagę. Próba stworzenia takiego ciągu poprzez podanie podczas tworzenia wpisu takiego tekstu: test", "admin": 1, "a": "b 
+kończy się komunikatem o wykrytych nieprawidłowych znakach. Oznacza to, że należy zaatakować samą kryptografię. W tym momencie można próbować różnych podejść, jednak w zadaniu znajduje się wskazówka - nazwa tego pamiętnika. Beat Flip czyta się tak samo jak bit flip co wskazuje na atak typu bitflipping. Można to potwierdzić poprzez podanie do deszyfrowania lekko zmodyfikowanego szyfrogramu np: UkVBTExZX05PVF9BTl9JVv3ZsbUWsLosNxCvG3TNKkJBvKdJchuG9Ci0bwn2WWPFcsF2s9NL5VV89PORty8Zmg==
+W tym przypadku na 33 pozycji zmieniono M na N co skutkuje otrzymaniem takiej odpowiedzi:
+�L�Yssian_bop", "comment": "test"}
+Dostajemy zniekształcony blok, w którym dokonaliśmy zmiany, ale także zmianę ostatniej litery username z t na p(wcześniej było russian_bot a teraz jest russian_bop). Daje nam to pewność, że możemy wykonać atak bitflipping. 
+Tu odsyłam do teorii na temat ataków bitflipping: https://sekurak.pl/czym-jest-atak-kryptograficzny-bit-flipping-teoria-i-praktyka/
+Na początek musimy przygotować odpowiedni szyfrogram, tak aby zniekształcona część znajdowała się wewnątrz znaków "" inaczej otrzymamy nieprawidłowy JSON. Badamy więc długość bloku szyfrowania poprzez podawanie coraz dłuższych zawartości wpisów, tak aż zwrócony szyfrogram skokowo zwiększy swą długość. Załóżmy, że podaliśmy już x znaków. Następnie kontynuujemy podawanie coraz dłuższych zawartości wpisów, aż zwrócony szyfrogram znowu skokowo zwiększy swoją długość. Załóżmy, że do tego momentu podaliśmy y znaków. Wtedy długość bloku wynosi d=y-x. 
+Teraz przygotowujemy szyfrogram który będziemy później modyfikować. Najpierw podajemy x znaków, aby dopełnić obecny blok, następnie d znaków, które będziemy później modyfikować, a następnie ciąg, na którego wynik deszyfrowania będą wpływać modyfikowane przez nas znaki. Ostatecznie przygotowany przez nas ciąg może wyglądać na przykład tak: "aaaaaaaaaaaaaaaaaaaaaaaa). (admin); "(bez cudzysłowów). Daje to nam to szyfrogram: UkVBTExZX05PVF9BTl9JVv3ZsbUWsLosMxCvG3TNKkJBvKdJchuG9Ci0bwn2WWPF62MuvmBG23QN6+pOkf0DQpRgkjxuXrQy1nbLmIFVjt/FkikzOq9TMKWz1/gI2xYK który deszyfruje się do: {"username": "russian_bot", "comment": "aaaaaaaaaaaaaaaaaaaaaaaa). (admin); "} 
+Teraz aby zmienić znak ) znajdujący się po ciągu liter a na znak ", należy wykonać operację(zakładamy, że znak ) znajduje się na pozycji 80):
+szyfrogram[64] = szyfrogram[64] xor wartość_liczbowa(')') xor wartość_liczbowa('"')
+czyli nowy szyfrogram to stary szyfrogram xor obecny znak na zmienianej pozycji xor pożądany znak na zmienianej pozycji.
+Korzystając z tej zasady zmieniamy pozostałe znaki. Rozwiązanie znajduje się w pliku solve.py. Otrzymany szyfrogram podajemy serwerowi, który zwraca nam flagę.

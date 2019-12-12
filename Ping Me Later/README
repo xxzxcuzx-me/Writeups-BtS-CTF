@@ -1,0 +1,6 @@
+Title:
+Ping me later
+Description:
+Have you ever deleted your ping program when you needed it most? I got you covered. My new site does just that - pings. Just give it a target and watch that ICMP packets flow.
+
+W ramach zadania dostajemy stronę z tekstem "Ping me if you can!", polem input oraz przyciskiem prześlij. W połączeniu z opisem daje to nam niemal pewność, że strona ta pinguje podany adres. Dla testu podajemy: cisco.com i dostajemy w odpowiedzi wynik linuxowego polecenia ping. Skoro więc strona wywołuje polecenie systemowe to warto sprawdzić czy nie daje nam to możliwości wstrzyknięcia swojego polecenia. Testujemy więc takie dane: "localhost | id". W odpowiedzi dostajemy "You have entered forbidden character!". Oznacza to, że jest wdrożone jakieś filtrowanie podanych danych. W tym momencie całe zadanie jest w miarę jasne - mamy obejść ten filtr. W tym wypadku należało wykorzystać znak `. Niestety strona nie zwraca błędów więc należy cały output swoich wstrzykiwanych komend kierować do oddzielnego pliku. W tym wypadku wykonujemy: `ls -al > test.txt`. W pliku test.txt na serwerze znajduje się wynik tego polecenia. Następnie wykonujemy `ls ../ -al > test.txt` dzięki czemu znajdujemy lokalizację flagi. Na koniec wykonujemy `cat ../flag.txt > test.txt` i mamy flagę.

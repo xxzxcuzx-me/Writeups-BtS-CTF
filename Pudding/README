@@ -1,0 +1,10 @@
+Title:
+Pudding
+Description:
+Everybody loves cookies and our Oracle loves to give them to anyone that comes. I heard, that there is even some kind of prize inside if you know how to crack them.
+
+
+W tym zadaniu otrzymywaliśmy numer portu do którego mieliśmy się podłączyć netcatem. Po wykonaniu połączenia otrzymywaliśmy ciasteczko oraz poproszono nas o podanie swojego. Jeśli podaliśmy to, które właśnie otrzymaliśmy to dostaliśmy informację u nazwie użytkownika, haśle oraz o tym czy jesteśmy adminem. Jeśli zmodyfikowaliśmy nieco to ciasteczko przed podaniem na przykład w taki sposób:
+UkVBTExZX05PVF9BTl9JVrRT7egK11hJOM+myjr/0/4uC/Es32G67vMt5u3GjdSEAJnuKT/GW8kEa4OAAiX+nfMJHvLMYgXRewLCKeh+VR1Nd6agt7eDMjL8DQPavgs5BvGd4H4uVZ+bwQ/2U/145a0QSSNIlq8oUQkgE0NJjy3L0AoZQKcqBocNUPbWYsBA
+czyli zamieniliśmy przedostatnią literę A na B to otrzymaliśmy informację: Incorrect padding!. To plus nazwa zadania plus użycie słowa Oracle w opisie daje nam pewność, że w tym zadaniu chodzi o wykorzystanie podatności typu Padding Oracle. Więcej o takich podatnościach można przeczytać tutaj: https://sekurak.pl/czym-jest-padding-oracle-atak-i-ochrona/
+Pozwala ona na zdeszyfrowanie dowolnej wiadomości bez znajomości klucza, a nawet użytego algorytmu szyfrowania. Należy napisać odpowiedni skrypt, który na podstawie komunikatu o nieprawidłowym paddingu będzie odszyfrowywał bajt po bajcie zaszyfrowaną wiadomość. Przykładowe rozwiązanie znajduje się w pliku solve.py. Dołączony jest również plik oracle.py który umieszczony był na serwerze. Można go uruchomić komendą "python2 oracle.py localhost 4444" gdzie za localhost podajemy adres interfejsu na którym ma być uruchomione zadanie, a za 4444 numer portu. W pliku solve.py ustawione jest łączenie się do localhost:4444.

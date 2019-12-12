@@ -1,0 +1,7 @@
+Title:
+Crack me
+Description:
+Can you untangle my mysterious algorithm and guess the password? 
+
+
+W tym zadaniu należało przeprowadzić inżynierię wsteczną otrzymanego pliku wykonywalnego, który żąda od użytkownika hasła, tak by zrozumieć algorytm sprawdzający czy podane hasło jest prawidłowe. Nie ma tu żadnej finezji czy sztuczek, należało po prostu zrozumieć, że algorytmem "szyfrowania" użytym w tym programie jest xor. Należało też znaleźć klucz wobec którego było wykonywane szyfrowanie podanego hasła(brzmiał on n13_W4rT0_ByL0) oraz zaszyfrowane prawidłowe hasło do którego porównywane było zaszyfrowane podane hasło. Pozwalało to odszyfrować prawidłowe hasło, które było flagą w tym zadaniu.

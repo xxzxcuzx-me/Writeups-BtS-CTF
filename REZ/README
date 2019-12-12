@@ -1,0 +1,6 @@
+Title:
+REZ
+Description:
+You just have to pull some strings to get password to my challenge.
+
+W tym zadaniu dostajemy wyłącznie plik wykonywalny, który po uruchomieniu pyta o hasło. Jeśli podamy prawidłowe to nam pogratuluje. Wystarczyło użyć komendy strings na tym pliku. Zwraca ona wszystkie ciągi znaków ASCII dłuższe niż 4 znajdujące sić w zadanym pliku. Jednym z takich ciągów w tym pliku binarnym jest flaga.
